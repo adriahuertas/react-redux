@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from "react-redux"
-import { updateAnecdote, voteAnecdote } from "../reducers/anecdoteReducer"
+import { updateAnecdote } from "../reducers/anecdoteReducer"
 import {
   deleteNotification,
   setNotification,
 } from "../reducers/notificationReducer"
-import { clear } from "@testing-library/user-event/dist/clear"
 import { useEffect } from "react"
 
 export const AnecdoteList = () => {
@@ -32,19 +31,11 @@ export const AnecdoteList = () => {
 
     dispatch(
       setNotification(
-        `you voted '${anecdotes.find((a) => a.id === id).content}'`
+        `you voted '${anecdotes.find((a) => a.id === id).content}'`,
+        10
       )
     )
-    notificationTimeout = setTimeout(() => {
-      dispatch(deleteNotification())
-    }, 5000)
   }
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(notificationTimeout)
-    }
-  }, [])
 
   return (
     <>
